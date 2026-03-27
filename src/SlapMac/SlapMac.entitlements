@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <!-- DISABLED: App sandbox blocks IOKit HID access -->
+    <!-- Must be disabled for accelerometer access -->
+    <key>com.apple.security.app-sandbox</key>
+    <false/>
+    
+    <!-- File access for custom sounds -->
+    <key>com.apple.security.files.user-selected.read-only</key>
+    <true/>
+</dict>
+</plist>
