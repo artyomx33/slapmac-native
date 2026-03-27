@@ -1,0 +1,100 @@
+name: Build SlapMac
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:  # Allow manual trigger
+
+jobs:
+  build:
+    runs-on: macos-14  # Free GitHub macOS runner with Xcode
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Xcode
+      uses: maxim-lobanov/setup-xcode@v1
+      with:
+        xcode-version: '15.0'
+    
+    - name: Check Xcode version
+      run: |
+        xcodebuild -version
+        swift --version
+    
+    - name: Generate sound files
+      working-directory: ./src
+      run: |
+        chmod +x generate_sounds.sh
+        ./generate_sounds.sh
+    
+    - name: Build SlapMac
+      working-directory: ./src
+      run: |
+        xcodebuild clean build \
+          -project SlapMac.xcodeproj \
+          -scheme SlapMac \
+          -configuration Release \
+          -destination 'platform=macOS' \
+          CODE_SIGN_IDENTITY="" \
+          CODE_SIGNING_REQUIRED=NO \
+          CODE_SIGNING_ALLOWED=NO
+    
+    - name: Find built app
+      run: |
+        find ./src -name "SlapMac.app" -type d
+        ls -la ./src/build/Release/ || echo "Checking build dir..."
+    
+    - name: Package app
+      run: |
+        mkdir -p SlapMac-Installer
+        cp -r ./src/build/Release/SlapMac.app SlapMac-Installer/ || \
+        cp -r $(find ./src -name "SlapMac.app" -type d | head -1) SlapMac-Installer/
+        ln -s /Applications SlapMac-Installer/Applications
+        
+        # Create DMG
+        hdiutil create -volname "SlapMac" \
+          -srcfolder SlapMac-Installer \
+          -ov \
+          -format UDZO \
+          SlapMac.dmg
+        
+        ls -lh SlapMac.dmg
+    
+    - name: Upload DMG artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: SlapMac.dmg
+        path: SlapMac.dmg
+        retention-days: 30
+    
+    - name: Create Release
+      if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+      uses: softprops/action-gh-release@v1
+      with:
+        tag_name: v${{ github.run_number }}
+        name: SlapMac v${{ github.run_number }}
+        files: SlapMac.dmg
+        draft: false
+        prerelease: true
+        body: |
+          👋💻 Slap your MacBook. It screams back.
+          
+          ## Requirements
+          - macOS 14.0+ (Sonoma)
+          - Apple Silicon Mac (M2/M3/M4 or M1 Pro/Max)
+          - Must run with sudo for accelerometer access
+          
+          ## Installation
+          1. Download `SlapMac.dmg`
+          2. Open DMG, drag to Applications
+          3. Run: `sudo /Applications/SlapMac.app/Contents/MacOS/SlapMac`
+          
+          ## Warning
+          ⚠️ This app requires root access to read the MacBook's accelerometer.
+          It is NOT sandboxed (required for IOKit HID access).
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
