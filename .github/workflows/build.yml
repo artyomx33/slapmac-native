@@ -25,11 +25,20 @@ jobs:
         xcodebuild -version
         swift --version
     
+    - name: List available voices
+      run: say -v '?' | head -20
+    
     - name: Generate sound files
       working-directory: ./src
       run: |
         chmod +x generate_sounds.sh
-        ./generate_sounds.sh
+        ./generate_sounds.sh || echo "Some voices failed, continuing with available ones..."
+      continue-on-error: true
+    
+    - name: Check if sounds were generated
+      run: |
+        ls -la ./src/../sounds/*/ || echo "No sounds directory yet"
+        # If no sounds, we'll use TTS fallback in the app
     
     - name: Build SlapMac
       working-directory: ./src
@@ -41,7 +50,8 @@ jobs:
           -destination 'platform=macOS' \
           CODE_SIGN_IDENTITY="" \
           CODE_SIGNING_REQUIRED=NO \
-          CODE_SIGNING_ALLOWED=NO
+          CODE_SIGNING_ALLOWED=NO \
+          | xcpretty
     
     - name: Find built app
       run: |
