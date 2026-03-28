@@ -7,28 +7,27 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A1000001 /* SlapMacApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000000 /* SlapMacApp.swift */; };
-		A1000003 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000002 /* ContentView.swift */; };
-		A1000005 /* MotionDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000004 /* MotionDetector.swift */; };
-		A1000007 /* AudioEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000006 /* AudioEngine.swift */; };
-		A1000009 /* SlapCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000008 /* SlapCounter.swift */; };
-		A100000B /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A100000A /* AppSettings.swift */; };
+		A10000011F2D /* SlapMacApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000001F2D /* SlapMacApp.swift */; };
+		A10000031F2D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000021F2D /* ContentView.swift */; };
+		A10000051F2D /* MotionDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000041F2D /* MotionDetector.swift */; };
+		A10000071F2D /* AudioEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000061F2D /* AudioEngine.swift */; };
+		A10000091F2D /* SlapCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000081F2D /* SlapCounter.swift */; };
+		A100000B1F2D /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A100000A1F2D /* AppSettings.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		A0FFFFFF /* SlapMac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SlapMac.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		A1000000 /* SlapMacApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlapMacApp.swift; sourceTree = "<group>"; };
-		A1000002 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		A1000004 /* MotionDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MotionDetector.swift; sourceTree = "<group>"; };
-		A1000006 /* AudioEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioEngine.swift; sourceTree = "<group>"; };
-		A1000008 /* SlapCounter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlapCounter.swift; sourceTree = "<group>"; };
-		A100000A /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
-		A100000C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A100000D /* SlapMac.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SlapMac.entitlements; sourceTree = "<group>"; };
+		A10000001F2D /* SlapMacApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlapMacApp.swift; sourceTree = "<group>"; };
+		A10000021F2D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		A10000041F2D /* MotionDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MotionDetector.swift; sourceTree = "<group>"; };
+		A10000061F2D /* AudioEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioEngine.swift; sourceTree = "<group>"; };
+		A10000081F2D /* SlapCounter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlapCounter.swift; sourceTree = "<group>"; };
+		A100000A1F2D /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
+		A100000C1F2D /* SlapMac.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SlapMac.entitlements; sourceTree = "<group>"; };
+		A100000D1F2D /* SlapMac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SlapMac.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		A0FFFFFC /* Frameworks */ = {
+		A100000E1F2D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -38,47 +37,46 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		A0FFFFF6 = {
+		A100000F1F2D = {
 			isa = PBXGroup;
 			children = (
-				A100000E /* SlapMac */,
-				A0FFFFFF /* Products */,
+				A10000101F2D /* SlapMac */,
+				A10000111F2D /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		A0FFFFFF /* Products */ = {
+		A10000101F2D /* SlapMac */ = {
 			isa = PBXGroup;
 			children = (
-				A0FFFFFF /* SlapMac.app */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		A100000E /* SlapMac */ = {
-			isa = PBXGroup;
-			children = (
-				A1000000 /* SlapMacApp.swift */,
-				A1000002 /* ContentView.swift */,
-				A1000004 /* MotionDetector.swift */,
-				A1000006 /* AudioEngine.swift */,
-				A1000008 /* SlapCounter.swift */,
-				A100000A /* AppSettings.swift */,
-				A100000C /* Info.plist */,
-				A100000D /* SlapMac.entitlements */,
+				A10000001F2D /* SlapMacApp.swift */,
+				A10000021F2D /* ContentView.swift */,
+				A10000041F2D /* MotionDetector.swift */,
+				A10000061F2D /* AudioEngine.swift */,
+				A10000081F2D /* SlapCounter.swift */,
+				A100000A1F2D /* AppSettings.swift */,
+				A100000C1F2D /* SlapMac.entitlements */,
 			);
 			path = SlapMac;
+			sourceTree = "<group>";
+		};
+		A10000111F2D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A100000D1F2D /* SlapMac.app */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		A0FFFFFE /* SlapMac */ = {
+		A10000121F2D /* SlapMac */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A100000F /* Build configuration list for PBXNativeTarget "SlapMac" */;
+			buildConfigurationList = A10000131F2D /* Build configuration list for PBXNativeTarget "SlapMac" */;
 			buildPhases = (
-				A0FFFFFB /* Sources */,
-				A0FFFFFC /* Frameworks */,
-				A0FFFFFD /* Resources */,
+				A10000141F2D /* Sources */,
+				A100000E1F2D /* Frameworks */,
+				A10000151F2D /* Resources */,
 			);
 			buildRules = (
 			);
@@ -86,25 +84,25 @@
 			);
 			name = SlapMac;
 			productName = SlapMac;
-			productReference = A0FFFFFF /* SlapMac.app */;
+			productReference = A100000D1F2D /* SlapMac.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		A0FFFFF7 /* Project object */ = {
+		A10000161F2D /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1500;
 				LastUpgradeCheck = 1500;
 				TargetAttributes = {
-					A0FFFFFE = {
+					A10000121F2D = {
 						CreatedOnToolsVersion = 15.0;
 					};
 				};
 			};
-			buildConfigurationList = A0FFFFFA /* Build configuration list for PBXProject "SlapMac" */;
+			buildConfigurationList = A10000171F2D /* Build configuration list for PBXProject "SlapMac" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -112,18 +110,18 @@
 				en,
 				Base,
 			);
-			mainGroup = A0FFFFF6;
-			productRefGroup = A0FFFFFF /* Products */;
+			mainGroup = A100000F1F2D;
+			productRefGroup = A10000111F2D /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				A0FFFFFE /* SlapMac */,
+				A10000121F2D /* SlapMac */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		A0FFFFFD /* Resources */ = {
+		A10000151F2D /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -133,23 +131,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		A0FFFFFB /* Sources */ = {
+		A10000141F2D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A1000001 /* SlapMacApp.swift in Sources */,
-				A1000003 /* ContentView.swift in Sources */,
-				A1000005 /* MotionDetector.swift in Sources */,
-				A1000007 /* AudioEngine.swift in Sources */,
-				A1000009 /* SlapCounter.swift in Sources */,
-				A100000B /* AppSettings.swift in Sources */,
+				A10000011F2D /* SlapMacApp.swift in Sources */,
+				A10000031F2D /* ContentView.swift in Sources */,
+				A10000051F2D /* MotionDetector.swift in Sources */,
+				A10000071F2D /* AudioEngine.swift in Sources */,
+				A10000091F2D /* SlapCounter.swift in Sources */,
+				A100000B1F2D /* AppSettings.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		A1000010 /* Debug */ = {
+		A10000181F2D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -182,7 +180,7 @@
 			};
 			name = Debug;
 		};
-		A1000011 /* Release */ = {
+		A10000191F2D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -207,7 +205,7 @@
 			};
 			name = Release;
 		};
-		A1000012 /* Debug */ = {
+		A100001A1F2D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = SlapMac/SlapMac.entitlements;
@@ -218,8 +216,6 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = SlapMac/Info.plist;
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_LSUIElement = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -234,7 +230,7 @@
 			};
 			name = Debug;
 		};
-		A1000013 /* Release */ = {
+		A100001B1F2D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = SlapMac/SlapMac.entitlements;
@@ -245,8 +241,6 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = SlapMac/Info.plist;
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_LSUIElement = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -264,25 +258,25 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		A0FFFFFA /* Build configuration list for PBXProject "SlapMac" */ = {
+		A10000171F2D /* Build configuration list for PBXProject "SlapMac" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				A1000010 /* Debug */,
-				A1000011 /* Release */,
+				A10000181F2D /* Debug */,
+				A10000191F2D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A100000F /* Build configuration list for PBXNativeTarget "SlapMac" */ = {
+		A10000131F2D /* Build configuration list for PBXNativeTarget "SlapMac" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				A1000012 /* Debug */,
-				A1000013 /* Release */,
+				A100001A1F2D /* Debug */,
+				A100001B1F2D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = A0FFFFF7 /* Project object */;
+	rootObject = A10000161F2D /* Project object */;
 }
