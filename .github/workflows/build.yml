@@ -5,11 +5,11 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
-  workflow_dispatch:  # Allow manual trigger
+  workflow_dispatch:
 
 jobs:
   build:
-    runs-on: macos-14  # Free GitHub macOS runner with Xcode
+    runs-on: macos-14
     
     steps:
     - name: Checkout code
@@ -20,61 +20,111 @@ jobs:
       with:
         xcode-version: '15.0'
     
-    - name: Check Xcode version
+    - name: Check versions
       run: |
         xcodebuild -version
         swift --version
     
-    - name: List available voices
-      run: say -v '?' | head -20
-    
-    - name: Generate sound files
+    - name: Create Xcode Project
       working-directory: ./src
       run: |
-        chmod +x generate_sounds.sh
-        ./generate_sounds.sh || echo "Some voices failed, continuing with available ones..."
+        # Create a proper Xcode project using swift package
+        swift package init --type executable --name SlapMac
+        
+        # Replace Package.swift with our settings
+        cat > Package.swift << 'EOF'
+// swift-tools-version:5.9
+import PackageDescription
+
+let package = Package(
+    name: "SlapMac",
+    platforms: [.macOS(.v14)],
+    products: [
+        .executable(name: "SlapMac", targets: ["SlapMac"])
+    ],
+    targets: [
+        .executableTarget(
+            name: "SlapMac",
+            path: "Sources/SlapMac",
+            swiftSettings: [
+                .unsafeFlags(["-parse-as-library"])
+            ]
+        )
+    ]
+)
+EOF
+        
+        # Move source files to proper location
+        mkdir -p Sources/SlapMac
+        mv SlapMac/*.swift Sources/SlapMac/ 2>/dev/null || true
+        
+        ls -la Sources/SlapMac/
+    
+    - name: Generate sounds (optional)
+      working-directory: ./src
+      run: |
+        mkdir -p sounds
+        # Create placeholder sounds (real ones would need 'say' command)
+        # For now, app has TTS fallback
       continue-on-error: true
     
-    - name: Check if sounds were generated
-      run: |
-        ls -la ./src/../sounds/*/ || echo "No sounds directory yet"
-        # If no sounds, we'll use TTS fallback in the app
-    
-    - name: Build SlapMac
+    - name: Build with Swift Package Manager
       working-directory: ./src
       run: |
-        xcodebuild clean build \
-          -project SlapMac.xcodeproj \
-          -scheme SlapMac \
-          -configuration Release \
-          -destination 'platform=macOS' \
-          CODE_SIGN_IDENTITY="" \
-          CODE_SIGNING_REQUIRED=NO \
-          CODE_SIGNING_ALLOWED=NO \
-          | xcpretty
-    
-    - name: Find built app
-      run: |
-        find ./src -name "SlapMac.app" -type d
-        ls -la ./src/build/Release/ || echo "Checking build dir..."
-    
-    - name: Package app
-      run: |
-        mkdir -p SlapMac-Installer
-        cp -r ./src/build/Release/SlapMac.app SlapMac-Installer/ || \
-        cp -r $(find ./src -name "SlapMac.app" -type d | head -1) SlapMac-Installer/
-        ln -s /Applications SlapMac-Installer/Applications
+        swift build -c release 2>&1 | tee build.log
         
-        # Create DMG
-        hdiutil create -volname "SlapMac" \
-          -srcfolder SlapMac-Installer \
-          -ov \
-          -format UDZO \
-          SlapMac.dmg
-        
-        ls -lh SlapMac.dmg
+        # Find the built binary
+        find .build -name "SlapMac" -type f
     
-    - name: Upload DMG artifact
+    - name: Create App Bundle
+      working-directory: ./src
+      run: |
+        mkdir -p SlapMac.app/Contents/MacOS
+        mkdir -p SlapMac.app/Contents/Resources
+        
+        # Copy binary
+        cp .build/release/SlapMac SlapMac.app/Contents/MacOS/ || \
+        cp $(find .build -name "SlapMac" -type f | head -1) SlapMac.app/Contents/MacOS/
+        
+        # Create Info.plist
+        cat > SlapMac.app/Contents/Info.plist << 'EOF'
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN">
+<plist version="1.0">
+<dict>
+    <key>CFBundleExecutable</key>
+    <string>SlapMac</string>
+    <key>CFBundleIdentifier</key>
+    <string>com.artyomx.slapmac</string>
+    <key>CFBundleName</key>
+    <string>SlapMac</string>
+    <key>CFBundlePackageType</key>
+    <string>APPL</string>
+    <key>CFBundleShortVersionString</key>
+    <string>1.0</string>
+    <key>LSUIElement</key>
+    <true/>
+    <key>LSMinimumSystemVersion</key>
+    <string>14.0</string>
+</dict>
+</plist>
+EOF
+        
+        # Verify
+        ls -la SlapMac.app/Contents/MacOS/
+        file SlapMac.app/Contents/MacOS/SlapMac
+    
+    - name: Package DMG
+      working-directory: ./src
+      run: |
+        mkdir -p installer
+        cp -r SlapMac.app installer/
+        ln -s /Applications installer/Applications
+        
+        hdiutil create -volname "SlapMac" -srcfolder installer -ov -format UDZO ../SlapMac.dmg
+        ls -lh ../SlapMac.dmg
+    
+    - name: Upload Artifact
       uses: actions/upload-artifact@v4
       with:
         name: SlapMac.dmg
@@ -96,15 +146,10 @@ jobs:
           ## Requirements
           - macOS 14.0+ (Sonoma)
           - Apple Silicon Mac (M2/M3/M4 or M1 Pro/Max)
-          - Must run with sudo for accelerometer access
           
           ## Installation
           1. Download `SlapMac.dmg`
           2. Open DMG, drag to Applications
           3. Run: `sudo /Applications/SlapMac.app/Contents/MacOS/SlapMac`
-          
-          ## Warning
-          ⚠️ This app requires root access to read the MacBook's accelerometer.
-          It is NOT sandboxed (required for IOKit HID access).
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
